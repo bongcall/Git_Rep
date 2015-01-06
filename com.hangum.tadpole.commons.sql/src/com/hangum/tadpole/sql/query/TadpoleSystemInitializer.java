@@ -29,7 +29,6 @@ import com.hangum.tadpole.engine.manager.TadpoleSQLManager;
 import com.hangum.tadpole.sql.Messages;
 import com.hangum.tadpole.sql.dao.system.UserDAO;
 import com.hangum.tadpole.sql.dao.system.UserDBDAO;
-import com.hangum.tadpole.sql.dao.system.UserGroupDAO;
 import com.hangum.tadpole.sql.system.internal.initialize.TadpoleMySQLDDL;
 import com.hangum.tadpole.sql.system.internal.initialize.TadpoleSQLIteDDL;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -231,29 +230,29 @@ public class TadpoleSystemInitializer {
 		// 시스템 기본 정보를 입력합니다.
 		TadpoleSystemQuery.newSystemInfo(SystemDefine.NAME, SystemDefine.MAJOR_VERSION, SystemDefine.SUB_VERSION, SystemDefine.INFORMATION);
 
-		// add basic group
-//		String createMsg = "AdminGroup crateing....";
-		UserGroupDAO groupAdmin = TadpoleSystem_UserGroupQuery.newUserGroup("AdminGroup");
-
-//		createMsg = "TestGroup crateing....";
-		UserGroupDAO groupTest = TadpoleSystem_UserGroupQuery.newUserGroup("TestGroup");
+//		// add basic group
+////		String createMsg = "AdminGroup crateing....";
+//		UserGroupDAO groupAdmin = TadpoleSystem_UserGroupQuery.newUserGroup("AdminGroup");
+//
+////		createMsg = "TestGroup crateing....";
+//		UserGroupDAO groupTest = TadpoleSystem_UserGroupQuery.newUserGroup("TestGroup");
 
 		// add basic user
 //		createMsg = ADMIN_EMAIL + " user creating....";
 		UserDAO adminUser = TadpoleSystem_UserQuery.newUser(ADMIN_EMAIL, ADMIN_PASSWD, ADMIN_NAME, "en_us", PublicTadpoleDefine.YES_NO.YES.toString(),
-				PublicTadpoleDefine.SecurityHint.QUESTION2.getKey(), "tadpole", PublicTadpoleDefine.YES_NO.NO.toString(), "");
+				PublicTadpoleDefine.YES_NO.NO.toString(), "");
 
 //		createMsg = MANAGER_EMAIL + " user creating....";
 		UserDAO managerUser = TadpoleSystem_UserQuery.newUser(MANAGER_EMAIL, MANAGER_PASSWD, MANAGER_NAME, "en_us", PublicTadpoleDefine.YES_NO.YES.toString(),
-				PublicTadpoleDefine.SecurityHint.QUESTION2.getKey(), "tadpole", PublicTadpoleDefine.YES_NO.NO.toString(), "");
+				 PublicTadpoleDefine.YES_NO.NO.toString(), "");
 
 ////		createMsg = GUEST_EMAIL + " user creating....";
 //		UserDAO gusetUser = TadpoleSystem_UserQuery.newUser(GUEST_EMAIL, GUEST_PASSWD, GUEST_NAME, "en_us", PublicTadpoleDefine.YES_NO.YES.toString(),
 //				PublicTadpoleDefine.SecurityHint.QUESTION2.getKey(), "tadpole");
 
-		// add group_role
-		TadpoleSystem_UserRole.newUserRole(groupAdmin.getSeq(), adminUser.getSeq(), PublicTadpoleDefine.USER_TYPE.ADMIN.toString(), PublicTadpoleDefine.YES_NO.NO.toString(), PublicTadpoleDefine.USER_TYPE.ADMIN.toString());
-		TadpoleSystem_UserRole.newUserRole(groupTest.getSeq(), managerUser.getSeq(), PublicTadpoleDefine.USER_TYPE.MANAGER.toString(), PublicTadpoleDefine.YES_NO.NO.toString(), PublicTadpoleDefine.USER_TYPE.MANAGER.toString());
+//		// add group_role
+//		TadpoleSystem_UserRole.newUserRole(/*groupAdmin.getSeq(),*/ adminUser.getSeq(), PublicTadpoleDefine.USER_TYPE.ADMIN.toString(), PublicTadpoleDefine.YES_NO.NO.toString(), PublicTadpoleDefine.USER_TYPE.ADMIN.toString());
+//		TadpoleSystem_UserRole.newUserRole(/*groupTest.getSeq(),*/ managerUser.getSeq(), PublicTadpoleDefine.USER_TYPE.MANAGER.toString(), PublicTadpoleDefine.YES_NO.NO.toString(), PublicTadpoleDefine.USER_TYPE.MANAGER.toString());
 //		TadpoleSystem_UserRole.newUserRole(groupTest.getSeq(), gusetUser.getSeq(), PublicTadpoleDefine.USER_TYPE.USER.toString(), PublicTadpoleDefine.YES_NO.NO.toString(), PublicTadpoleDefine.USER_TYPE.USER.toString());
 
 	}
@@ -269,7 +268,7 @@ public class TadpoleSystemInitializer {
 		// local db
 		if ("".equals(dbServerPath)) {
 
-			tadpoleEngineDB.setDbms_types(DBDefine.TADPOLE_SYSTEM_DEFAULT.getDBToString());
+			tadpoleEngineDB.setDbms_type(DBDefine.TADPOLE_SYSTEM_DEFAULT.getDBToString());
 			tadpoleEngineDB.setUrl(String.format(DBDefine.TADPOLE_SYSTEM_DEFAULT.getDB_URL_INFO(), DEFAULT_DB_FILE_LOCATION + DB_NAME));
 			tadpoleEngineDB.setDb(DB_INFORMATION);
 			tadpoleEngineDB.setDisplay_name(DB_INFORMATION);
@@ -296,7 +295,7 @@ public class TadpoleSystemInitializer {
 				
 				// make userDB
 				if("MYSQL".equalsIgnoreCase(whichDB)) {
-					tadpoleEngineDB.setDbms_types(DBDefine.TADPOLE_SYSTEM_MYSQL_DEFAULT.getDBToString());
+					tadpoleEngineDB.setDbms_type(DBDefine.TADPOLE_SYSTEM_MYSQL_DEFAULT.getDBToString());
 					tadpoleEngineDB.setUrl(String.format(DBDefine.TADPOLE_SYSTEM_MYSQL_DEFAULT.getDB_URL_INFO(), ip, port, database));
 					tadpoleEngineDB.setDb(database);
 					tadpoleEngineDB.setDisplay_name(DBDefine.TADPOLE_SYSTEM_MYSQL_DEFAULT.getDBToString());

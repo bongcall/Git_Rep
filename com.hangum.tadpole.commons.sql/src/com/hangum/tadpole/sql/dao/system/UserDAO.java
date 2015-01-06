@@ -19,28 +19,29 @@ package com.hangum.tadpole.sql.dao.system;
 public class UserDAO {
 	int seq;
 	String email;
+	String email_key;
 	String passwd;
+	String role_type;
 	String name;
 	String language;
 	String delYn;
 	String create_time;
 	String approval_yn;
-	String security_question;
-	String security_answer;
 	
 	String use_otp;
 	String otp_secret;
+	
+	/** tadpole_user_db_role column */
+	String role_id;
 
 	public UserDAO() {
 	}
 
-	public UserDAO(String email, String name, String language, String approval_yn, String security_question, String security_answer, String use_opt, String otp_secret) {
+	public UserDAO(String email, String name, String language, String approval_yn, String use_opt, String otp_secret) {
 		this.email = email;
 		this.name = name;
 		this.language = language;
 		this.approval_yn = approval_yn;
-		this.security_question = security_question;
-		this.security_answer = security_answer;
 		this.use_otp = use_opt;
 		this.otp_secret = otp_secret;
 	}
@@ -123,22 +124,6 @@ public class UserDAO {
 		this.approval_yn = approval_yn;
 	}
 
-	public String getSecurity_question() {
-		return security_question;
-	}
-
-	public void setSecurity_question(String security_question) {
-		this.security_question = security_question;
-	}
-
-	public String getSecurity_answer() {
-		return security_answer;
-	}
-
-	public void setSecurity_answer(String security_answer) {
-		this.security_answer = security_answer;
-	}
-
 	public String getUse_otp() {
 		return use_otp;
 	}
@@ -153,6 +138,30 @@ public class UserDAO {
 
 	public void setOtp_secret(String otp_secret) {
 		this.otp_secret = otp_secret;
+	}
+
+	public String getRole_id() {
+		return role_id;
+	}
+
+	public void setRole_id(String role_id) {
+		this.role_id = role_id;
+	}
+
+	public String getEmail_key() {
+		return email_key;
+	}
+
+	public void setEmail_key(String email_key) {
+		this.email_key = email_key;
+	}
+
+	public String getRole_type() {
+		return role_type;
+	}
+
+	public void setRole_type(String role_type) {
+		this.role_type = role_type;
 	}
 
 }

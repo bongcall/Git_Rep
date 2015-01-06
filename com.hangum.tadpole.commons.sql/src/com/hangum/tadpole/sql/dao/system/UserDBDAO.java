@@ -36,47 +36,49 @@ import com.hangum.tadpole.sql.system.permission.PermissionChecker;
  * @author hangum
  *
  */
-public class UserDBDAO {
+public class UserDBDAO extends TadpoleUserDbRoleDAO {	
 	protected int seq = -999;
 	protected int user_seq;
-	/** 외부 시스템 seq 현재는 amamzon rds seq*/
-	protected int ext_seq = -999;
-	protected int group_seq;
+	
+//	/** 외부 시스템 seq 현재는 amamzon rds seq*/
+//	protected int ext_seq = -999;
     
 	protected String group_name = "";
 	
 	protected String operation_type = "";
     
-	protected String dbms_types;
+	protected String dbms_type;
 	protected String url;
 	
-	public String getShowUrl(String userType) {
+	protected List<TadpoleUserDbRoleDAO> listChildren = new ArrayList<>();
+	
+	public String getUrl(String userType) {
 		return PermissionChecker.isShow(userType)?getUrl():"jdbc:*************************";
 	}
 	
 	protected String db;
-	public String getShowDb(String userType) {
+	public String getDb(String userType) {
 		return PermissionChecker.isShow(userType)?getDb():"********";
 	}
 	protected String display_name;
 	protected String host;
-	public String getShowHost(String userType) {
+	public String getHost(String userType) {
 		return PermissionChecker.isShow(userType)?getHost():"***.***.***.***";
 	}
 	
 	protected String port;
-	public String getShowPort(String userType) {
+	public String getPort(String userType) {
 		return PermissionChecker.isShow(userType)?getPort():"****";
 	}
 	
 	protected String locale;
 	protected String passwd;
-	public String getShowPasswd(String userType) {
+	public String getPasswd(String userType) {
 		return PermissionChecker.isShow(userType)?getPasswd():"********";
 	}
 	
 	protected String users;
-	public String getShowUsers(String userType) {
+	public String getUsers(String userType) {
 		return PermissionChecker.isShow(userType)?getUsers():"********";
 	}
 	
@@ -132,20 +134,6 @@ public class UserDBDAO {
     	return DBDefine.getDBDefine(this);
     }
     
-	/**
-	 * @return the group_seq
-	 */
-	public int getGroup_seq() {
-		return group_seq;
-	}
-
-	/**
-	 * @param group_seq the group_seq to set
-	 */
-	public void setGroup_seq(int group_seq) {
-		this.group_seq = group_seq;
-	}
-
 	public int getSeq() {
 		return seq;
 	}
@@ -161,15 +149,7 @@ public class UserDBDAO {
 	public void setUser_seq(int user_seq) {
 		this.user_seq = user_seq;
 	}
-
-	public int getExt_seq() {
-		return ext_seq;
-	}
-
-	public void setExt_seq(int ext_seq) {
-		this.ext_seq = ext_seq;
-	}
-
+	
 	public String getGroup_name() {
 		return group_name;
 	}
@@ -293,15 +273,15 @@ public class UserDBDAO {
 	/**
 	 * @return the dbms_types
 	 */
-	public String getDbms_types() {
-		return dbms_types;
+	public String getDbms_type() {
+		return dbms_type;
 	}
 
 	/**
 	 * @param dbms_types the dbms_types to set
 	 */
-	public void setDbms_types(String dbms_types) {
-		this.dbms_types = dbms_types;
+	public void setDbms_type(String dbms_types) {
+		this.dbms_type = dbms_types;
 	}
 
 	public String getDb() {
@@ -574,36 +554,12 @@ public class UserDBDAO {
 	public void setIs_summary_report(String is_summary_report) {
 		this.is_summary_report = is_summary_report;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "UserDBDAO [seq=" + seq + ", user_seq=" + user_seq
-				+ ", ext_seq=" + ext_seq + ", group_seq=" + group_seq
-				+ ", group_name=" + group_name + ", operation_type="
-				+ operation_type + ", dbms_types=" + dbms_types + ", url="
-				+ url + ", db=" + db + ", display_name=" + display_name
-				+ ", host=" + host + ", port=" + port + ", locale=" + locale
-				+ ", passwd=" + passwd + ", users=" + users + ", create_time="
-				+ create_time + ", delYn=" + delYn + ", ext1=" + ext1
-				+ ", ext2=" + ext2 + ", ext3=" + ext3 + ", ext4=" + ext4
-				+ ", ext5=" + ext5 + ", ext6=" + ext6 + ", ext7=" + ext7
-				+ ", ext8=" + ext8 + ", ext9=" + ext9 + ", ext10=" + ext10
-				+ ", is_profile=" + is_profile + ", profile_select_mill="
-				+ profile_select_mill + ", is_readOnlyConnect="
-				+ is_readOnlyConnect + ", is_autocommit=" + is_autocommit
-				+ ", is_showtables=" + is_showtables + ", is_table_filter="
-				+ is_table_filter + ", is_external_browser="
-				+ is_external_browser + ", listExternalBrowserdao="
-				+ listExternalBrowserdao + ", table_filter_include="
-				+ table_filter_include + ", table_filter_exclude="
-				+ table_filter_exclude + ", question_dml=" + question_dml
-				+ ", parent=" + parent + ", listUserDBErd=" + listUserDBErd
-				+ ", version=" + version + ", is_visible=" + is_visible
-				+ ", is_summary_report=" + is_summary_report
-				+ ", listUserDBGroup=" + listUserDBGroup + "]";
+	
+	public List<TadpoleUserDbRoleDAO> getListChildren() {
+		return listChildren;
 	}
 	
+	public void setListChildren(List<TadpoleUserDbRoleDAO> listChildren) {
+		this.listChildren = listChildren;
+	}
 }

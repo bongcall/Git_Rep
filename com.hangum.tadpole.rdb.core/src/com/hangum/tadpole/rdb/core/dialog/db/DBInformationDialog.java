@@ -116,7 +116,7 @@ public class DBInformationDialog extends Dialog {
 		Label lblName = new Label(grpOtherInformation, SWT.NONE);
 		lblName.setText(Messages.DBInformationDialog_4);
 		
-		if(PermissionChecker.isShow(SessionManager.getRoleType(userDB))) {
+		if(PermissionChecker.isShow(userDB.getRole_id())) {
 			Label lblNameValue = new Label(grpOtherInformation, SWT.NONE);
 			lblNameValue.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 			lblNameValue.setText(SessionManager.getName());
@@ -147,11 +147,11 @@ public class DBInformationDialog extends Dialog {
 	 * db widget
 	 */
 	private void initDBWidget() {
-		try {
-			groupName = TadpoleSystem_UserDBQuery.getUserGroup(SessionManager.getGroupSeqs());
-		} catch (Exception e1) {
-			logger.error("get group info", e1); //$NON-NLS-1$
-		}
+//		try {
+//			groupName = TadpoleSystem_UserDBQuery.getUserGroup(SessionManager.getGroupSeqs());
+//		} catch (Exception e1) {
+//			logger.error("get group info", e1); //$NON-NLS-1$
+//		}
 		selGroupName = userDB.getGroup_name();
 		
 		loginComposite = DBConnectionUtils.getDBConnection(userDB.getDBDefine(), compositeBody, groupName, selGroupName, userDB);
